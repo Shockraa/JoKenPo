@@ -31,6 +31,10 @@ button {
     text-align: center;
 }
 
+#reset{
+    width: 100%;
+}
+
 #placarBtn {
     position: absolute;
     width: 120px;
