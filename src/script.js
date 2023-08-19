@@ -5,9 +5,9 @@ const audio = document.getElementById('audio');
 const divCpu = document.getElementById('divCpu');
 const divUser = document.getElementById('divUser')
 const score = {
-    wins: 0,
-    losses: 0,
-    ties: 0
+    wins : 0,
+    losses : 0,
+    ties : 0
 }
 
 rock.addEventListener('click', () => {
@@ -20,10 +20,16 @@ rock.addEventListener('click', () => {
         let userimg = 'src/img/rock.png';
         if (escolha === 0) {
             imagemURL = 'src/img/rock.png';
+            score.ties += 1;
+            document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
         } else if (escolha === 1) {
             imagemURL = 'src/img/paper.png';
+            score.losses += 1;
+            document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
         } else {
             imagemURL = 'src/img/scissors.png';
+            score.wins += 1;
+            document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
         }
 
         divCpu.innerHTML = `<img src="${imagemURL}" alt="Escolha" />`;
@@ -45,10 +51,16 @@ paper.addEventListener('click', () => {
         let userimg = 'src/img/paper.png';
         if (escolha === 0) {
             imagemURL = 'src/img/rock.png';
+            score.wins += 1;
+            document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
         } else if (escolha === 1) {
             imagemURL = 'src/img/paper.png';
+            score.ties += 1;
+            document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
         } else {
             imagemURL = 'src/img/scissors.png';
+            score.losses += 1;
+            document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
         }
 
         divCpu.innerHTML = `<img src="${imagemURL}" alt="Escolha" />`;
@@ -69,10 +81,16 @@ scissors.addEventListener('click', () => {
         let userimg = 'src/img/scissors.png';
         if (escolha === 0) {
             imagemURL = 'src/img/rock.png';
+            score.losses += 1;
+            document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
         } else if (escolha === 1) {
             imagemURL = 'src/img/paper.png';
+            score.wins += 1;
+            document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
         } else {
             imagemURL = 'src/img/scissors.png';
+            score.ties += 1;
+            document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
         }
 
         divCpu.innerHTML = `<img src="${imagemURL}" alt="Escolha" />`;
