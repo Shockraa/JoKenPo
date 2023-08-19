@@ -43,6 +43,11 @@ button {
 }
 
 .placar {
+    display: grid;
+    grid-template-rows: 1fr, 1fr, 1fr;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
     position: absolute;
     width: 25%;
     height: 400px;
