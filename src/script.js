@@ -14,11 +14,11 @@ const score = {
 audio.addEventListener('ended', () => {
     const escolha = Math.floor(Math.random() * 3); // 0 - Pedra, 1 - Papel, 2 - Tesoura
 
-    let imagemURL;
-    let userimg;
+    let imagemURL; //Imagem do CPU
+    let userimg; //Imagem do usuário
 
 
-    if (audio.getAttribute('data-escolha') === 'rock') {
+    if (audio.getAttribute('data-escolha') === 'rock') { //Processo para mudar imagem
         userimg = 'src/img/rock.png';
     } else if (audio.getAttribute('data-escolha') === 'paper') {
         userimg = 'src/img/paper.png';
@@ -27,7 +27,7 @@ audio.addEventListener('ended', () => {
     }
 
 
-    if (escolha === 0) {
+    if (escolha === 0) { //Opções
         imagemURL = 'src/img/rock.png';
         if (audio.getAttribute('data-escolha') === 'scissors') {
             score.losses++;
@@ -69,7 +69,7 @@ audio.addEventListener('ended', () => {
 });
 
 
-rock.addEventListener('click', () => {
+rock.addEventListener('click', () => { //Opções de escolha
     audio.setAttribute('data-escolha', 'rock');
     audio.play();
 });
@@ -84,7 +84,7 @@ scissors.addEventListener('click', () => {
     audio.play();
 });
 
-const placarBtn = document.getElementById('placarBtn');
+const placarBtn = document.getElementById('placarBtn'); //Menu placar
 let mostrarPlacar = true;
 
 placarBtn.addEventListener('click', () => {
