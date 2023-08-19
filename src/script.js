@@ -4,6 +4,12 @@ const scissors = document.getElementById('scissors');
 const audio = document.getElementById('audio');
 const divCpu = document.getElementById('divCpu');
 const divUser = document.getElementById('divUser')
+const score = {
+    wins: 0,
+    losses: 0,
+    ties: 0
+}
+
 rock.addEventListener('click', () => {
 
     audio.play();
@@ -24,7 +30,7 @@ rock.addEventListener('click', () => {
         divCpu.style.display = 'block';
         divUser.innerHTML = `<img src="${userimg}" alt="Escolha" />`;
         divUser.style.display = 'block';
-        
+
 
     });
 });
@@ -82,10 +88,10 @@ const placarBtn = document.getElementById('placarBtn');
 let mostrar = true;
 
 placarBtn.addEventListener('click', () => {
-  if (mostrar == true) {
-    placar.style.display = 'none';
-  } else {
-    placar.style.display = 'block';
-  }
-  mostrar = !mostrar;
+    if (mostrar == true) {
+        placar.style.display = 'none';
+    } else {
+        placar.style.display = 'block';
+    }
+    mostrar = !mostrar;
 });
