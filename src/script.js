@@ -4,14 +4,25 @@ const scissors = document.getElementById('scissors');
 const audio = document.getElementById('audio');
 const divCpu = document.getElementById('divCpu');
 const divUser = document.getElementById('divUser');
-const score = {
-    wins: 0,
-    losses: 0,
-    ties: 0
+const reset = document.getElementById('reset');
+let score = JSON.parse(localStorage.getItem('score')); //Chama localstorage
+if (score === null) //Verifica se existe
+{
+   score = { //Atribui valores iniciais
+    wins : 0,
+    losses : 0,
+    ties : 0,
+   }
+
 }
+document.getElementById("winsNumber").textContent = "Wins: " + score.wins; //Mostrar na tela 
+    document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
+    document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
 
 
-audio.addEventListener('ended', () => {
+
+
+audio.addEventListener('ended', () => { //Quando acaba o audio
     const escolha = Math.floor(Math.random() * 3); // 0 - Pedra, 1 - Papel, 2 - Tesoura
 
     let imagemURL; //Imagem do CPU
@@ -55,6 +66,7 @@ audio.addEventListener('ended', () => {
             score.ties++;
         }
     }
+    localStorage.setItem('score', JSON.stringify(score)); //Guarda no localstorage
 
 
     document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
@@ -67,6 +79,7 @@ audio.addEventListener('ended', () => {
     divUser.innerHTML = `<img src="${userimg}" alt="Escolha" />`;
     divUser.style.display = 'block';
 });
+
 
 
 rock.addEventListener('click', () => { //Opções de escolha
@@ -84,6 +97,16 @@ scissors.addEventListener('click', () => {
     audio.play();
 });
 
+reset.addEventListener('click', () => {
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0;
+    localStorage.removeItem('score'); //Faz score ser null para que seja possível resetar os valores 
+    document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
+    document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
+    document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
+});
+
 const placarBtn = document.getElementById('placarBtn'); //Menu placar
 let mostrarPlacar = true;
 
@@ -91,7 +114,7 @@ placarBtn.addEventListener('click', () => {
     if (mostrarPlacar) {
         placar.style.display = 'none';
     } else {
-        placar.style.display = 'block';
+        placar.style.display = 'grid';
     }
     mostrarPlacar = !mostrarPlacar;
 });
