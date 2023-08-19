@@ -3,113 +3,95 @@ const paper = document.getElementById('paper');
 const scissors = document.getElementById('scissors');
 const audio = document.getElementById('audio');
 const divCpu = document.getElementById('divCpu');
-const divUser = document.getElementById('divUser')
+const divUser = document.getElementById('divUser');
 const score = {
-    wins : 0,
-    losses : 0,
-    ties : 0
+    wins: 0,
+    losses: 0,
+    ties: 0
 }
 
-rock.addEventListener('click', () => {
 
-    audio.play();
-    audio.addEventListener('ended', () => {
-        const escolha = Math.floor(Math.random() * 3); // 0 - Pedra, 1 - Papel, 2 - Tesoura
+audio.addEventListener('ended', () => {
+    const escolha = Math.floor(Math.random() * 3); // 0 - Pedra, 1 - Papel, 2 - Tesoura
 
-        let imagemURL;
-        let userimg = 'src/img/rock.png';
-        if (escolha === 0) {
-            imagemURL = 'src/img/rock.png';
-            score.ties += 1;
-            document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
-        } else if (escolha === 1) {
-            imagemURL = 'src/img/paper.png';
-            score.losses += 1;
-            document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
+    let imagemURL;
+    let userimg;
+
+
+    if (audio.getAttribute('data-escolha') === 'rock') {
+        userimg = 'src/img/rock.png';
+    } else if (audio.getAttribute('data-escolha') === 'paper') {
+        userimg = 'src/img/paper.png';
+    } else {
+        userimg = 'src/img/scissors.png';
+    }
+
+
+    if (escolha === 0) {
+        imagemURL = 'src/img/rock.png';
+        if (audio.getAttribute('data-escolha') === 'scissors') {
+            score.losses++;
+        } else if (audio.getAttribute('data-escolha') === 'paper') {
+            score.wins++;
         } else {
-            imagemURL = 'src/img/scissors.png';
-            score.wins += 1;
-            document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
+            score.ties++;
         }
+    } else if (escolha === 1) {
+        imagemURL = 'src/img/paper.png';
+        if (audio.getAttribute('data-escolha') === 'rock') {
+            score.losses++;
+        } else if (audio.getAttribute('data-escolha') === 'scissors') {
+            score.wins++;
+        } else {
+            score.ties++;
+        }
+    } else {
+        imagemURL = 'src/img/scissors.png';
+        if (audio.getAttribute('data-escolha') === 'paper') {
+            score.losses++;
+        } else if (audio.getAttribute('data-escolha') === 'rock') {
+            score.wins++;
+        } else {
+            score.ties++;
+        }
+    }
 
-        divCpu.innerHTML = `<img src="${imagemURL}" alt="Escolha" />`;
-        divCpu.style.display = 'block';
-        divUser.innerHTML = `<img src="${userimg}" alt="Escolha" />`;
-        divUser.style.display = 'block';
+
+    document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
+    document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
+    document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
 
 
-    });
+    divCpu.innerHTML = `<img src="${imagemURL}" alt="Escolha" />`;
+    divCpu.style.display = 'block';
+    divUser.innerHTML = `<img src="${userimg}" alt="Escolha" />`;
+    divUser.style.display = 'block';
+});
+
+
+rock.addEventListener('click', () => {
+    audio.setAttribute('data-escolha', 'rock');
+    audio.play();
 });
 
 paper.addEventListener('click', () => {
-
+    audio.setAttribute('data-escolha', 'paper');
     audio.play();
-    audio.addEventListener('ended', () => {
-        const escolha = Math.floor(Math.random() * 3); // 0 - Pedra, 1 - Papel, 2 - Tesoura
-
-        let imagemURL;
-        let userimg = 'src/img/paper.png';
-        if (escolha === 0) {
-            imagemURL = 'src/img/rock.png';
-            score.wins += 1;
-            document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
-        } else if (escolha === 1) {
-            imagemURL = 'src/img/paper.png';
-            score.ties += 1;
-            document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
-        } else {
-            imagemURL = 'src/img/scissors.png';
-            score.losses += 1;
-            document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
-        }
-
-        divCpu.innerHTML = `<img src="${imagemURL}" alt="Escolha" />`;
-        divCpu.style.display = 'block';
-        divUser.innerHTML = `<img src="${userimg}" alt="Escolha" />`;
-        divUser.style.display = 'block';
-
-    });
 });
 
 scissors.addEventListener('click', () => {
-
+    audio.setAttribute('data-escolha', 'scissors');
     audio.play();
-    audio.addEventListener('ended', () => {
-        const escolha = Math.floor(Math.random() * 3); // 0 - Pedra, 1 - Papel, 2 - Tesoura
-
-        let imagemURL;
-        let userimg = 'src/img/scissors.png';
-        if (escolha === 0) {
-            imagemURL = 'src/img/rock.png';
-            score.losses += 1;
-            document.getElementById("lossesNumber").textContent = "Losses: " + score.losses;
-        } else if (escolha === 1) {
-            imagemURL = 'src/img/paper.png';
-            score.wins += 1;
-            document.getElementById("winsNumber").textContent = "Wins: " + score.wins;
-        } else {
-            imagemURL = 'src/img/scissors.png';
-            score.ties += 1;
-            document.getElementById("tiesNumber").textContent = "Ties: " + score.ties;
-        }
-
-        divCpu.innerHTML = `<img src="${imagemURL}" alt="Escolha" />`;
-        divCpu.style.display = 'block';
-        divUser.innerHTML = `<img src="${userimg}" alt="Escolha" />`;
-        divUser.style.display = 'block';
-
-    });
 });
 
-const placar = document.getElementById('placar');
 const placarBtn = document.getElementById('placarBtn');
-let mostrar = true;
+let mostrarPlacar = true;
 
 placarBtn.addEventListener('click', () => {
-    if (mostrar == true) {
+    if (mostrarPlacar) {
         placar.style.display = 'none';
     } else {
         placar.style.display = 'block';
     }
-    mostrar = !mostrar;
+    mostrarPlacar = !mostrarPlacar;
 });
